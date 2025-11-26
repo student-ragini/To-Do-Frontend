@@ -4,7 +4,7 @@
   "description": "Frontend for To-Do app (HTML, CSS, JS)",
   "main": "src/scripts/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "mkdir -p dist && cp index.html dist/index.html && cp -r public dist/public && cp -r src dist/src"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
-// ===== Render backend URL =====
+// Backend URL on Render
 const API_BASE_URL = "https://to-do-backend-31p8.onrender.com";
 
-// Frontend pages ka base path
+// Frontend pages base path (public/pages)
 const PAGES_BASE = "/public/pages";
 
 function LoadDashboard() {
@@ -56,24 +56,25 @@ function LoadPage(page_name) {
 }
 
 $(function () {
-  // Start me home page
+  // Start with home page
   LoadPage("home.html");
 
-  // New User Button Click - on home
+  // New User from home
   $(document).on("click", "#btnNewUser", () => {
     LoadPage("new_user.html");
   });
 
-  // Signin Button Click - on home
+  // Signin from home
   $(document).on("click", "#btnSignin", () => {
     LoadPage("user_login.html");
   });
 
+  // Existing User link on register page
   $(document).on("click", "#btnExistingUser", () => {
     LoadPage("user_login.html");
   });
 
-  // Register Button Click - Post Data to Users
+  // Register new user
   $(document).on("click", "#btnRegister", () => {
     const user = {
       user_id: $("#user_id").val(),
@@ -93,7 +94,7 @@ $(function () {
     });
   });
 
-  // Login Button - on login page
+  // Login
   $(document).on("click", "#btnLogin", () => {
     const user_id = $("#user_id").val();
 
@@ -115,17 +116,18 @@ $(function () {
     });
   });
 
-  // Signout Logic
+  // Signout
   $(document).on("click", "#btnSignout", () => {
     $.removeCookie("userid");
     LoadPage("home.html");
   });
 
-  // New Appointment
+  // New Appointment button on dashboard
   $(document).on("click", "#btnNewAppointment", () => {
     LoadPage("add_appointment.html");
   });
 
+  // Cancel Add -> back to dashboard
   $(document).on("click", "#btnCancel", () => {
     LoadDashboard();
   });
@@ -151,7 +153,7 @@ $(function () {
     });
   });
 
-  // Edit Click
+  // Edit click
   $(document).on("click", "#btnEdit", (e) => {
     LoadPage("edit_appointment.html");
 
@@ -170,11 +172,12 @@ $(function () {
     });
   });
 
+  // Edit cancel -> dashboard
   $(document).on("click", "#btnEditCancel", () => {
     LoadDashboard();
   });
 
-  // Save Click
+  // Save edited appointment
   $(document).on("click", "#btnSave", () => {
     const appointment = {
       appointment_id: $("#appointment_id").val(),
@@ -197,7 +200,7 @@ $(function () {
     });
   });
 
-  // Delete Click
+  // Delete appointment
   $(document).on("click", "#btnDelete", (e) => {
     const choice = confirm("Are you sure? Want to Delete?");
     if (choice === true) {
