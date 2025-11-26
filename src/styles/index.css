@@ -1,5 +1,7 @@
 body {
-    background-image: url("../public/images/to-do.jpg");
+    /* IMPORTANT: absolute path from site root */
+    background-image: url("/public/images/to-do.jpg");
     background-size: cover;
-    
+    background-position: center;
+    min-height: 100vh;
 }
