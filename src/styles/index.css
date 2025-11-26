@@ -1,7 +1,22 @@
+/* Full page reset */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Background image settings */
 body {
-    /* IMPORTANT: absolute path from site root */
     background-image: url("/public/images/to-do.jpg");
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
+    background-size: cover;         
+    background-position: center;    
+    background-repeat: no-repeat;
+}
+
+/* Center buttons (New User / Sign in) nicely */
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
