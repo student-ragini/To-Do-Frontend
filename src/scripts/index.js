@@ -1,12 +1,14 @@
 // ===== Render backend URL =====
 const API_BASE_URL = "https://to-do-backend-31p8.onrender.com";
 
+// Frontend pages ka base path
+const PAGES_BASE = "/public/pages";
 
 function LoadDashboard() {
   if ($.cookie("userid")) {
     $.ajax({
       method: "get",
-      url: `./public/pages/user_dashboard.html`,   
+      url: `${PAGES_BASE}/user_dashboard.html`,
       success: (response) => {
         $("section").html(response);
         $("#lblUser").html($.cookie("userid"));
@@ -18,19 +20,21 @@ function LoadDashboard() {
             $("#appointments").empty();
 
             appointments.map((appointment) => {
-              $(
-                `<div class="alert alert-success alert-dismissible">
-                    <h2>${appointment.title}</h2>
-                    <p>${appointment.description}</p>
-                    <div class="bi bi-calendar">
-                      ${appointment.date.slice(0, appointment.date.indexOf("T"))}
-                    </div>
-                    <div class="mt-3">
-                      <button value=${appointment.appointment_id} id="btnEdit" class="bi bi-pen-fill btn btn-warning mx-2"></button>
-                      <button value=${appointment.appointment_id} id="btnDelete" class="bi bi-trash btn btn-danger mx-2"></button>
-                    </div>
-                 </div>`
-              ).appendTo("#appointments");
+              $(`
+                <div class="alert alert-success alert-dismissible">
+                  <h2>${appointment.title}</h2>
+                  <p>${appointment.description}</p>
+                  <div class="bi bi-calendar">
+                    ${appointment.date.slice(0, appointment.date.indexOf("T"))}
+                  </div>
+                  <div class="mt-3">
+                    <button value="${appointment.appointment_id}" id="btnEdit"
+                            class="bi bi-pen-fill btn btn-warning mx-2"></button>
+                    <button value="${appointment.appointment_id}" id="btnDelete"
+                            class="bi bi-trash btn btn-danger mx-2"></button>
+                  </div>
+                </div>
+              `).appendTo("#appointments");
             });
           }
         });
@@ -44,7 +48,7 @@ function LoadDashboard() {
 function LoadPage(page_name) {
   $.ajax({
     method: "get",
-    url: `./public/pages/${page_name}`,        
+    url: `${PAGES_BASE}/${page_name}`,
     success: (response) => {
       $("section").html(response);
     }
