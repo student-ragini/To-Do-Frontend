@@ -1,0 +1,18 @@
+{
+  "name": "to-do-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for To-Do app (HTML, CSS, JS)",
+  "main": "src/scripts/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1",
+    "jquery": "^3.7.1",
+    "jquery.cookie": "^1.4.1"
+  }
+}
