@@ -56,25 +56,21 @@ function LoadPage(page_name) {
 }
 
 $(function () {
-  // Start with home page
   LoadPage("home.html");
 
-  // New User from home
   $(document).on("click", "#btnNewUser", () => {
     LoadPage("new_user.html");
   });
 
-  // Signin from home
   $(document).on("click", "#btnSignin", () => {
     LoadPage("user_login.html");
   });
 
-  // Existing User link on register page
   $(document).on("click", "#btnExistingUser", () => {
     LoadPage("user_login.html");
   });
 
-  // Register new user
+  // ===== REGISTER USER  =====
   $(document).on("click", "#btnRegister", () => {
     const user = {
       user_id: $("#user_id").val(),
@@ -94,23 +90,28 @@ $(function () {
     });
   });
 
-  // Login
+  // ===== LOGIN USER (HASH SAFE) =====
   $(document).on("click", "#btnLogin", () => {
-    const user_id = $("#user_id").val();
+    const user = {
+      user_id: $("#user_id").val(),
+      password: $("#password").val()
+    };
 
     $.ajax({
-      method: "get",
-      url: `${API_BASE_URL}/users/${user_id}`,
-      success: (userDetails) => {
-        if (userDetails) {
-          if ($("#password").val() === userDetails.password) {
-            $.cookie("userid", $("#user_id").val());
-            LoadDashboard();
-          } else {
-            alert("Invalid Password");
-          }
-        } else {
+      method: "post",
+      url: `${API_BASE_URL}/login-user`,
+      data: user,
+      success: (response) => {
+        $.cookie("userid", response.user_id);
+        LoadDashboard();
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          alert("Invalid Password");
+        } else if (err.status === 404) {
           alert("User Not Found");
+        } else {
+          alert("Server Error");
         }
       }
     });
@@ -122,17 +123,14 @@ $(function () {
     LoadPage("home.html");
   });
 
-  // New Appointment button on dashboard
   $(document).on("click", "#btnNewAppointment", () => {
     LoadPage("add_appointment.html");
   });
 
-  // Cancel Add -> back to dashboard
   $(document).on("click", "#btnCancel", () => {
     LoadDashboard();
   });
 
-  // Add Appointment
   $(document).on("click", "#btnAdd", () => {
     const appointment = {
       appointment_id: $("#appointment_id").val(),
@@ -153,7 +151,6 @@ $(function () {
     });
   });
 
-  // Edit click
   $(document).on("click", "#btnEdit", (e) => {
     LoadPage("edit_appointment.html");
 
@@ -172,12 +169,10 @@ $(function () {
     });
   });
 
-  // Edit cancel -> dashboard
   $(document).on("click", "#btnEditCancel", () => {
     LoadDashboard();
   });
 
-  // Save edited appointment
   $(document).on("click", "#btnSave", () => {
     const appointment = {
       appointment_id: $("#appointment_id").val(),
@@ -200,7 +195,6 @@ $(function () {
     });
   });
 
-  // Delete appointment
   $(document).on("click", "#btnDelete", (e) => {
     const choice = confirm("Are you sure? Want to Delete?");
     if (choice === true) {
